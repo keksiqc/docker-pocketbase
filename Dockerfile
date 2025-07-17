@@ -43,7 +43,7 @@
   RUN set -ex; \
     cd ${BUILD_ROOT}; \
     go mod tidy; \
-    eleven go build -ldflags "-s -w -X github.com/pocketbase/pocketbase.Version=${APP_VERSION}" -o ${BUILD_BIN} ./examples/base;
+    go build -ldflags "-s -w -X github.com/pocketbase/pocketbase.Version=${APP_VERSION}" -o ${BUILD_BIN} ./examples/base;
 
   RUN set -ex; \
     eleven distroless ${BUILD_BIN};

@@ -1,0 +1,21 @@
+name: "pb"
+services:
+  pocketbase:
+    read_only: true
+    image: "pocketbase"
+    environment:
+      TZ: "Europe/Zurich"
+    volumes:
+      - "pocketbase.etc:/pocketbase/etc"
+    ports:
+      - "8090:8090/tcp"
+    networks:
+      frontend:
+    restart: "always"
+
+volumes:
+  pocketbase.etc:
+
+networks:
+  frontend:
+    external: true

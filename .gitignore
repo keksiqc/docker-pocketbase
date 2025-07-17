@@ -1,2 +1,8 @@
+# default
+maintain/
+node_modules/
 .DS_Store
 .vscode
+
+# custom
+.env

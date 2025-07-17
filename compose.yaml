@@ -6,7 +6,7 @@ services:
     environment:
       TZ: "Europe/Zurich"
     volumes:
-      - "pocketbase.etc:/pocketbase/etc"
+      - "pocketbase.var:/pocketbase/var"
     ports:
       - "8090:8090/tcp"
     networks:
@@ -14,7 +14,7 @@ services:
     restart: "always"
 
 volumes:
-  pocketbase.etc:
+  pocketbase.var:
 
 networks:
   frontend:

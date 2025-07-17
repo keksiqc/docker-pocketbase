@@ -54,7 +54,7 @@
   ARG APP_ROOT
   USER root
   RUN set -ex; \
-    eleven mkdir /distroless${APP_ROOT}/etc/{pb_data,pb_hooks,pb_migrations,pb_public};
+    eleven mkdir /distroless${APP_ROOT}/var/{pb_data,pb_hooks,pb_migrations,pb_public};
 
 # ╔═════════════════════════════════════════════════════╗
 # ║                       IMAGE                         ║
@@ -91,7 +91,7 @@
     COPY --from=file-system --chown=${APP_UID}:${APP_GID} /distroless/ /
 
 # :: PERSISTENT DATA
-  VOLUME ["${APP_ROOT}/etc"]
+  VOLUME ["${APP_ROOT}/var"]
 
 # :: HEALTH
   HEALTHCHECK --interval=5s --timeout=2s --start-period=5s \
@@ -100,4 +100,4 @@
 # :: EXECUTE
   USER ${APP_UID}:${APP_GID}
   ENTRYPOINT ["/usr/local/bin/pocketbase"]
-  CMD ["serve", "--http=0.0.0.0:8090", "--dir", "/pocketbase/etc/pb_data", "--publicDir", "/pocketbase/etc/pb_public", "--hooksDir", "/pocketbase/etc/pb_hooks", "--migrationsDir", "/pocketbase/etc/pb_migrations"]
+  CMD ["serve", "--http=0.0.0.0:8090", "--dir", "${APP_ROOT}/var/pb_data", "--publicDir", "${APP_ROOT}/var/pb_public", "--hooksDir", "${APP_ROOT}/var/pb_hooks", "--migrationsDir", "${APP_ROOT}/var/pb_migrations"]

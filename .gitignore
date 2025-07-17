@@ -3,6 +3,7 @@ maintain/
 node_modules/
 .DS_Store
 .vscode
+.idx
 
 # custom
 .env

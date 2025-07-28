@@ -93,4 +93,4 @@
 # :: EXECUTE
   USER ${APP_UID}:${APP_GID}
   ENTRYPOINT ["/usr/local/bin/pocketbase"]
-  CMD ["serve", "--http=0.0.0.0:8090", "--dir", "${APP_ROOT}/var/pb_data", "--publicDir", "${APP_ROOT}/var/pb_public", "--hooksDir", "${APP_ROOT}/var/pb_hooks", "--migrationsDir", "${APP_ROOT}/var/pb_migrations"]
+  CMD ["serve", "--http=0.0.0.0:8090", "--dir", "${APP_ROOT}/var/pb_data", "--publicDir", "${APP_ROOT}/var/pb_public", "--hooksDir", "${APP_ROOT}/var/pb_hooks", "--migrationsDir", "${APP_ROOT}/var/pb_migrations", "--encryptionEnv", "PB_ENCRYPTION_KEY"]

@@ -17,8 +17,20 @@
 ---
 
 > [!NOTE]
+>
 > This project is based on the work found in
 > [muchobien/pocketbase-docker](https://github.com/muchobien/pocketbase-docker).
+> And uses images from [11notes](https://github.com/11notes).
+
+## Comparison
+
+| **image** | keksiqc/pocketbase:0.29.0 | muchobien/pocketbase:latest |
+| ---: | :---: | :---: |
+| **image size on disk** | 25.6MB | 59.6MB |
+| **process UID/GID** | 1000/1000 | 0/0 |
+| **distroless?** | ✅ | ❌ |
+| **rootless?** | ✅ | ❌ |
+
 
 ## Supported Architectures
 
@@ -49,88 +61,34 @@ tags.
 Access the web UI at `<your-ip>:8090`. For more details, refer to the
 [PocketBase Documentation](https://pocketbase.io/docs/).
 
-## Usage
-
-Below are example configurations to get started with a PocketBase container.
-
-### Using Docker Compose (Recommended)
+## Compose
 
 ```yaml
-version: "3.8"
+name: "pb"
 services:
   pocketbase:
-    image: ghcr.io/keksiqc/pocketbase:latest
-    container_name: pocketbase
-    restart: unless-stopped
-    command:
-      - --encryptionEnv # optional
-      - ENCRYPTION # optional
+    read_only: true
+    image: "ghcr.io/keksiqc/pocketbase:0.29.0"
     environment:
-      ENCRYPTION: $(openssl rand -hex 16) # optional (Ensure this is a 32-character long encryption key https://pocketbase.io/docs/going-to-production/#enable-settings-encryption)
-    ports:
-      - "8090:8090"
+      TZ: "Europe/Berlin"
+      PB_ENCRYPTION_KEY: "6bcf9990dd6d401c113b621bf2edeebd" # Change this in production (openssl rand -hex 16)
     volumes:
-      - /path/to/data:/pb/pb_data
-      - /path/to/public:/pb/pb_public # optional
-      - /path/to/hooks:/pb/pb_hooks # optional
-      - /path/to/migrations:/pb/pb_migrations # optional
-    healthcheck: # optional, recommended since v0.10.0
-      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
-      interval: 5s
-      timeout: 5s
-      retries: 5
-```
-
-### Using Docker CLI ([More Info](https://docs.docker.com/engine/reference/commandline/cli/))
-
-```bash
-docker run -d \
-  --name=pocketbase \
-  -p 8090:8090 \
-  -e ENCRYPTION=example `# optional` \
-  -v /path/to/data:/pb/pb_data \
-  -v /path/to/public:/pb/pb_public `# optional` \
-  -v /path/to/hooks:/pb/pb_hooks `# optional` \
-  -v /path/to/migrations:/pb/pb_migrations `# optional` \
-  --restart unless-stopped \
-  ghcr.io/keksiqc/pocketbase:latest \
-  --encryptionEnv ENCRYPTION `# optional`
-```
-
-## Building the Image Locally
-
-To build the image yourself, copy the `Dockerfile` and `docker-compose.yml` to
-your project directory. Update `docker-compose.yml` to build the image instead
-of pulling it:
-
-```yaml
-version: "3.8"
-services:
-  pocketbase:
-    build:
-      context: .
-      args:
-        - VERSION=0.22.10 # Specify the PocketBase version here
-    container_name: pocketbase
-    restart: unless-stopped
-    command:
-      - --encryptionEnv # optional
-      - ENCRYPTION # optional
-    environment:
-      ENCRYPTION: example # optional
+      - "pocketbase.var:/pocketbase/var"
     ports:
-      - "8090:8090"
-    volumes:
-      - /path/to/data:/pb_data
-      - /path/to/public:/pb_public # optional
-      - /path/to/hooks:/pb_hooks # optional
-      - /path/to/migrations:/pb_migrations # optional
-    healthcheck: # optional, recommended since v0.10.0
-      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      - "8090:8090/tcp"
+    networks:
+      frontend:
+    restart: "always"
+
+volumes:
+  pocketbase.var:
+
+networks:
+  frontend:
+    external: true
+
 ```
+
 
 ## Related Repositories
 

@@ -11,15 +11,12 @@
   # :: FOREIGN IMAGES
   FROM 11notes/distroless AS distroless
   FROM 11notes/distroless:curl AS distroless-curl
-  FROM 11notes/util:bin AS util-bin
-  FROM 11notes/util AS util
 
 # ╔═════════════════════════════════════════════════════╗
 # ║                       BUILD                         ║
 # ╚═════════════════════════════════════════════════════╝
   # :: POCKETBASE
   FROM 11notes/go:1.24 AS build
-  COPY --from=util-bin / /
   ARG APP_VERSION \
       BUILD_SRC \
       BUILD_ROOT \
@@ -48,9 +45,8 @@
   RUN set -ex; \
     eleven distroless ${BUILD_BIN};
 
-  # :: file system
+  # :: FILE SYSTEM
   FROM alpine AS file-system
-  COPY --from=util / /
   ARG APP_ROOT
   USER root
   RUN set -ex; \
@@ -80,9 +76,6 @@
         APP_NAME=${APP_NAME} \
         APP_VERSION=${APP_VERSION} \
         APP_ROOT=${APP_ROOT}
-
-  # :: app specific defaults
-    ENV DISABLE_CONTINUE=true
 
   # :: multi-stage
     COPY --from=distroless / /

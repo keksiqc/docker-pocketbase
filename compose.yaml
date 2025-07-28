@@ -4,7 +4,8 @@ services:
     read_only: true
     image: "pocketbase"
     environment:
-      TZ: "Europe/Zurich"
+      TZ: "Europe/Berlin"
+      PB_ENCRYPTION_KEY: "6bcf9990dd6d401c113b621bf2edeebd" # Change this in production (openssl rand -hex 16)
     volumes:
       - "pocketbase.var:/pocketbase/var"
     ports:

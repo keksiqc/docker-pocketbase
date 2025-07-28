@@ -50,7 +50,7 @@
   ARG APP_ROOT
   USER root
   RUN set -ex; \
-    eleven mkdir /distroless${APP_ROOT}/var/{pb_data,pb_hooks,pb_migrations,pb_public};
+    mkdir -p /distroless${APP_ROOT}/var/{pb_data,pb_hooks,pb_migrations,pb_public};
 
 # ╔═════════════════════════════════════════════════════╗
 # ║                       IMAGE                         ║

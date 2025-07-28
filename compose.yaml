@@ -2,7 +2,7 @@ name: "pb"
 services:
   pocketbase:
     read_only: true
-    image: "pocketbase"
+    image: "ghcr.io/keksiqc/pocketbase:0.29.0"
     environment:
       TZ: "Europe/Berlin"
       PB_ENCRYPTION_KEY: "6bcf9990dd6d401c113b621bf2edeebd" # Change this in production (openssl rand -hex 16)

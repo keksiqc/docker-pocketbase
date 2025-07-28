@@ -1,4 +1,3 @@
-
 <p align="center">
   <a href="https://pocketbase.io/">
     <img alt="PocketBase logo" height="128" src="https://pocketbase.io/images/logo.svg">
@@ -18,32 +17,37 @@
 ---
 
 > [!NOTE]
-> This project is based on the work found in [muchobien/pocketbase-docker](https://github.com/muchobien/pocketbase-docker).
+> This project is based on the work found in
+> [muchobien/pocketbase-docker](https://github.com/muchobien/pocketbase-docker).
 
 ## Supported Architectures
 
-Pulling `ghcr.io/keksiqc/pocketbase:latest` will automatically retrieve the appropriate image for your system architecture.
+Pulling `ghcr.io/keksiqc/pocketbase:latest` will automatically retrieve the
+appropriate image for your system architecture.
 
 | Architecture | Supported |
-|--------------|-----------|
+| ------------ | --------- |
 | amd64        | ✅        |
 | arm64        | ✅        |
 | armv7        | ✅        |
 
 ## Version Tags
 
-This image offers multiple tags for different versions. Choose the appropriate tag for your use case and exercise caution when using unstable or development tags.
+This image offers multiple tags for different versions. Choose the appropriate
+tag for your use case and exercise caution when using unstable or development
+tags.
 
-| Tag    | Available | Description                        |
-|--------|-----------|------------------------------------|
+| Tag    | Available | Description                         |
+| ------ | --------- | ----------------------------------- |
 | latest | ✅        | Latest stable release of PocketBase |
-| x.x.x  | ✅        | Specific patch release             |
-| x.x    | ✅        | Minor release                      |
-| x      | ✅        | Major release                      |
+| x.x.x  | ✅        | Specific patch release              |
+| x.x    | ✅        | Minor release                       |
+| x      | ✅        | Major release                       |
 
 ## Application Setup
 
-Access the web UI at `<your-ip>:8090`. For more details, refer to the [PocketBase Documentation](https://pocketbase.io/docs/).
+Access the web UI at `<your-ip>:8090`. For more details, refer to the
+[PocketBase Documentation](https://pocketbase.io/docs/).
 
 ## Usage
 
@@ -62,7 +66,7 @@ services:
       - --encryptionEnv # optional
       - ENCRYPTION # optional
     environment:
-      ENCRYPTION: $(openssl rand -hex 16) # optional (Ensure this is a 32-character long encryption key https://pocketbase.io/docs/going-to-production/#enable-settings-encryption) 
+      ENCRYPTION: $(openssl rand -hex 16) # optional (Ensure this is a 32-character long encryption key https://pocketbase.io/docs/going-to-production/#enable-settings-encryption)
     ports:
       - "8090:8090"
     volumes:
@@ -95,7 +99,9 @@ docker run -d \
 
 ## Building the Image Locally
 
-To build the image yourself, copy the `Dockerfile` and `docker-compose.yml` to your project directory. Update `docker-compose.yml` to build the image instead of pulling it:
+To build the image yourself, copy the `Dockerfile` and `docker-compose.yml` to
+your project directory. Update `docker-compose.yml` to build the image instead
+of pulling it:
 
 ```yaml
 version: "3.8"

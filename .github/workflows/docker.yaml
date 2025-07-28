@@ -108,7 +108,7 @@ jobs:
           context: .
           push: true
           provenance: false
-          build-args: | 
+          build-args: |
             APP_VERSION=${{ steps.version.outputs.value }}
             APP_ROOT=/pocketbase
           platforms: linux/amd64,linux/arm64,linux/arm/v7
